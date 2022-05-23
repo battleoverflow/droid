@@ -19,6 +19,11 @@ python3 droid.py
 -dn,  --download   |   Download a file from the Android device
 ```
 
+I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network
+```bash
+python3 droid.py -ip 127.0.0.1 -c
+```
+
 ## Example(s)
 This example connects to the Android device (127.0.0.1 is an example), removes the specified APK package (`com.android.ui`), and then uploads a new APK called `test_apk_v1.apk`
 ```bash

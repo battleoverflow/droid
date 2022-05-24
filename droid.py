@@ -11,13 +11,12 @@ parser.add_argument('-c', '--connect', help="Connects to the Android device", ac
 parser.add_argument('-d', '--disconnect', help="Disconnects from the Android device", action='store_true', default=False, required=False)
 parser.add_argument('-r', '--reboot', help="Remotely reboots the Android device", action='store_true', default=False, required=False)
 parser.add_argument('-p', '--package', help="The package name of the APK (ex: com.android.ui)", default=None, required=False)
-parser.add_argument('-i', '--info', help="Learn more about the Android device", action='store_true', default=False, required=False)
-parser.add_argument('-dn', '--download', help="Download a file from the Android device", action='store_true', default=False, required=False)
+parser.add_argument('-dn', '--download', help="Download a file from the Android device", default=None, required=False)
 
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "0.1.4"
+version = "0.2.5"
 
 if platform.system() == 'Darwin':
     adb = "$HOME/Library/Android/sdk/platform-tools/adb"
@@ -37,7 +36,7 @@ class Droid:
         ██. ██ ▐█•█▌▐█▌.▐▌▐█▌██. ██ 
         ▀▀▀▀▀• .▀  ▀ ▀█▄▀▪▀▀▀▀▀▀▀▀• 
             
-            {author} | v{version}
+           {author} | v{version}
         """)
 
     def connect_ip(self):
@@ -88,13 +87,6 @@ class Droid:
             os.system(f"{adb} reboot {ip_address}")
         except:
             print("Device is unresponsive. Please check the connection")
-    
-    def info(self):
-        try:
-            ip_address = args.ip_address
-            os.system(f"{adb} usb")
-        except:
-            print("Unable to access Android device information")
         
     def download(self):
         try:
@@ -110,17 +102,17 @@ if __name__ == '__main__':
     if args.connect:
         D.connect_ip()
 
-        if args.remove and args.package:
-            D.remove_apk()
-    
-        if args.upload:
-            D.upload_apk()
+    if args.remove and args.package:
+        D.remove_apk()
 
-        if args.reboot:
-            D.reboot()
-        
-        if args.info:
-            D.info()
+    if args.upload:
+        D.upload_apk()
     
-        if args.disconnect:
-            D.disconnect_ip()
+    if args.download:
+        D.download()
+
+    if args.reboot:
+        D.reboot()
+    
+    if args.disconnect:
+        D.disconnect_ip()

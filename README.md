@@ -1,9 +1,11 @@
 # Droid
-Droid is an Android remote communications script created to communicate with an Android device on the local network over the Android debug bridge (adb).
+Droid is a remote communications script created to communicate with an Android device on the local network over the Android debug bridge (adb) in a much easier way
+
+NOTE: Script does require Android platform tools (adb) to be installed
 
 ## Usage
 ```bash
-python3 droid.py
+python3 droid.py -ip 127.0.0.1
 ```
 
 ## Options
@@ -15,7 +17,6 @@ python3 droid.py
 -d,  --disconnect  |   Disconnects from the Android device
 -r,  --reboot      |   Remotely reboots the Android device
 -p,  --package     |   The package name of the APK (ex: com.android.ui)
--i,  --info        |   Learn more about the Android device
 -dn,  --download   |   Download a file from the Android device
 ```
 
@@ -30,9 +31,9 @@ This example connects to the Android device (127.0.0.1 is an example), removes t
 python3 droid.py -ip 127.0.0.1 -c -rm -p com.android.ui -up ~/Downloads/test_apk_v1.apk
 ```
 
-This example connects to the Android device (127.0.0.1 is an example), downloads an image, and then shows information about the Android device
+This example connects to the Android device (127.0.0.1 is an example) and downloads an image
 ```bash
-python3 droid.py -ip 127.0.0.1 --download /sdcard/cool_pic.png -i
+python3 droid.py -ip 127.0.0.1 --download /sdcard/cool_pic.png
 ```
 
 Once you're finished working within the Android environment, you can run this command to disconnect:

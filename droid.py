@@ -12,11 +12,13 @@ parser.add_argument('-d', '--disconnect', help="Disconnects from the Android dev
 parser.add_argument('-r', '--reboot', help="Remotely reboots the Android device", action='store_true', default=False, required=False)
 parser.add_argument('-p', '--package', help="The package name of the APK (ex: com.android.ui)", default=None, required=False)
 parser.add_argument('-dn', '--download', help="Download a file from the Android device", default=None, required=False)
+parser.add_argument('-ps', '--push', help="Name & location of the file on your local machine", default=None, required=False)
+parser.add_argument('-loc', '--location', help="Location on the Android device to push the selected file", default=None, required=False)
 
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "0.2.5"
+version = "0.2.6"
 
 if platform.system() == 'Darwin':
     adb = "$HOME/Library/Android/sdk/platform-tools/adb"
@@ -77,6 +79,15 @@ class Droid:
         except:
             print(f"{name_of_apk} upload unsuccessful")
     
+    def push(self):
+        try:
+            name_of_file = args.push
+            location_to_push = args.location
+            os.system(f'{adb} push {name_of_file} {location_to_push}')
+            print(f"{name_of_file} successfully uploaded")
+        except:
+            print(f"{name_of_file} upload unsuccessful")
+    
     if args.package == False and args.remove == True:
         print("A package name is required to remove an APK")
         sys.exit(0)
@@ -104,6 +115,9 @@ if __name__ == '__main__':
 
     if args.remove and args.package:
         D.remove_apk()
+    
+    if args.push and args.location:
+        D.push()
 
     if args.upload:
         D.upload_apk()

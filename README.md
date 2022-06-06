@@ -18,6 +18,8 @@ python3 droid.py -ip 127.0.0.1
 -r,  --reboot      |   Remotely reboots the Android device
 -p,  --package     |   The package name of the APK (ex: com.android.ui)
 -dn,  --download   |   Download a file from the Android device
+-ps,  --push       |   Name & location of the file on your local machine
+-loc,  --location  |   Location on the Android device to push the selected file
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network

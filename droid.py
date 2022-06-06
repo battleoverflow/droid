@@ -13,12 +13,13 @@ parser.add_argument('-r', '--reboot', help="Remotely reboots the Android device"
 parser.add_argument('-p', '--package', help="The package name of the APK (ex: com.android.ui)", default=None, required=False)
 parser.add_argument('-dn', '--download', help="Download a file from the Android device", default=None, required=False)
 parser.add_argument('-ps', '--push', help="Name & location of the file on your local machine", default=None, required=False)
-parser.add_argument('-loc', '--location', help="Location on the Android device to push the selected file", default=None, required=False)
+parser.add_argument('-loc', '--location', help="Location on the Android device to push or remove the selected file", default=None, required=False)
+parser.add_argument('-rmf', '--file', help="Remove a specified file from the Android device", action='store_true', default=False, required=False)
 
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "0.2.6"
+version = "0.2.7"
 
 if platform.system() == 'Darwin':
     adb = "$HOME/Library/Android/sdk/platform-tools/adb"
@@ -79,7 +80,7 @@ class Droid:
         except:
             print(f"{name_of_apk} upload unsuccessful")
     
-    def push(self):
+    def upload_file(self):
         try:
             name_of_file = args.push
             location_to_push = args.location
@@ -87,6 +88,14 @@ class Droid:
             print(f"{name_of_file} successfully uploaded")
         except:
             print(f"{name_of_file} upload unsuccessful")
+    
+    def remove_file(self):
+        try:
+            location_to_remove = args.location
+            os.system(f'{adb} shell rm -rf {location_to_remove}')
+            print(f"{location_to_remove} successfully removed")
+        except:
+            print(f"{location_to_remove} removal unsuccessful")
     
     if args.package == False and args.remove == True:
         print("A package name is required to remove an APK")
@@ -117,7 +126,10 @@ if __name__ == '__main__':
         D.remove_apk()
     
     if args.push and args.location:
-        D.push()
+        D.upload_file()
+    
+    if args.file and args.location:
+        D.remove_file()
 
     if args.upload:
         D.upload_apk()

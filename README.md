@@ -10,16 +10,17 @@ python3 droid.py -ip 127.0.0.1
 
 ## Options
 ```
--ip, --ip_address  |   IP address of the Android device
--up, --upload      |   Name & location of the APK to upload (ex: ~/Downloads/ApkName.apk)
--rm, --remove      |   Removes the old APK with the same package name
--c,  --connect     |   Connects to the Android device
--d,  --disconnect  |   Disconnects from the Android device
--r,  --reboot      |   Remotely reboots the Android device
--p,  --package     |   The package name of the APK (ex: com.android.ui)
--dn, --download    |   Download a file from the Android device
--ps, --push        |   Name & location of the file on your local machine
--loc,--location    |   Location on the Android device to push the selected file
+-ip,  --ip_address  |   IP address of the Android device
+-up,  --upload      |   Name & location of the APK to upload (ex: ~/Downloads/ApkName.apk)
+-rm,  --remove      |   Removes the old APK with the same package name
+-c,   --connect     |   Connects to the Android device
+-d,   --disconnect  |   Disconnects from the Android device
+-r,   --reboot      |   Remotely reboots the Android device
+-p,   --package     |   The package name of the APK (ex: com.android.ui)
+-dn,  --download    |   Download a file from the Android device
+-ps,  --push        |   Name & location of the file on your local machine
+-loc, --location    |   Location on the Android device to push or remove the selected file
+-rmf, --file        |   Remove a specified file from the Android device
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network

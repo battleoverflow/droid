@@ -12,6 +12,7 @@ First release is now available! Versions for Linux and macOS are currently avail
 
 ## Options
 ```
+-h,   --help		|	Help menu
 -ip,  --ip_address  |   IP address of the Android device
 -up,  --upload      |   Absolute path of the APK to upload (ex: ~/Downloads/ApkName.apk)
 -rm,  --remove      |   Removes the old APK with the same package name (requires the -p flag)

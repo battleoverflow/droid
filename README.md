@@ -13,6 +13,7 @@ First release is now available! Versions for Linux and macOS are currently avail
 ## Options
 ```
 -h,   --help	    |	Help menu
+-v,   --version	    |	Version information for Droid
 -ip,  --ip_address  |   IP address of the Android device
 -up,  --upload      |   Absolute path of the APK to upload (ex: ~/Downloads/ApkName.apk)
 -rm,  --remove      |   Removes the old APK with the same package name (requires the -p flag)
@@ -26,6 +27,7 @@ First release is now available! Versions for Linux and macOS are currently avail
 -rmf, --rmfile      |   Remove a file from the Android device (set the absolute path using -loc)
 -bl,  --bluetooth   |   Start or stop bluetooth service for the Android device
 -w,  --wifi         |   Start or stop wifi service for the Android device
+-g,  --gui          |   A graphical user interface built to communicate an Android device (WIP) (data does not auto-populate)
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network

@@ -1,11 +1,21 @@
-# ------------------------------------------------------------------------------------------#
-#                                                                                           #
-# view.py                                                                                   #
-#                                                                                           #
-# Author(s): Hifumi1337                                                                     #
-# ------------------------------------------------------------------------------------------#
+################################################
+# File: view.py                                #
+#                                              #
+# Author(s): {                                 #
+#   Hifumi1337 <https://github.com/Hifumi1337> #
+# }                                            #
+################################################
 
-import tkinter, customtkinter
+import tkinter, customtkinter, os, platform
+from subprocess import getoutput
+
+if platform.system() == 'Darwin':
+    adb = "$HOME/Library/Android/sdk/platform-tools/adb"
+elif platform.system() == 'Windows':
+    adb = "%LOCALAPPDATA%\Android\sdk\platform-tools\\adb"
+elif platform.system() == 'Linux':
+    whoami = getoutput("whoami")
+    adb = f"/home/{whoami}/Android/Sdk/platform-tools/adb"
 
 class View(customtkinter.CTk):
 
@@ -52,13 +62,24 @@ class View(customtkinter.CTk):
             self.frame_info = customtkinter.CTkFrame(master=self.frame_right)
             self.frame_info.grid(row=0, column=0, columnspan=2, rowspan=4, pady=20, padx=20, sticky="nsew")
 
+            # self.frame_info.rowconfigure(0, weight=1)
+            # self.frame_info.columnconfigure(0, weight=1)
+
+            # connection_info = f"Welcome, {getoutput('whoami')}"
+
+            # self.label_info_1 = customtkinter.CTkLabel(master=self.frame_info, text=connection_info, corner_radius=6, fg_color=("white", "gray38"))
+            # self.label_info_1.grid(row=0, column=0, columnspan=2, rowspan=4, pady=20, padx=20, sticky="nsew")
+
             self.mainloop()
 
         def btn_connect(self):
+            os.system(f'{adb} connect 1270.0.0.1')
             print("Connected")
         
         def btn_disconnect(self):
+            os.system(f'{adb} disconnect 1270.0.0.1')
             print("Disconnected")
         
         def btn_destroy(self):
+            os.system(f'{adb} disconnect 1270.0.0.1')
             self.destroy()

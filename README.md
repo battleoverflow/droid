@@ -28,7 +28,7 @@ NOTE: Script does require Android debug bridge (adb) to be installed on the syst
 -o,  --output       |   Name of the output file when taking a screenshot (omit the extension)
 -s,  --screenshot   |   Take a screenshot of the current Android screen
 -l,  --log          |   Outputs Logcat logs in real time to a set file
--g,  --gui          |   A graphical user interface built to communicate with an Android device (WIP) (data does not auto-populate)
+-g,  --gui          |   A graphical user interface built to communicate with an Android device (WIP)
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network
@@ -66,4 +66,10 @@ NOTE: When turning the wifi off, if you are communicating with the Android devic
 This command will take a screenshot of the current Android screen while monitoring Logcat in real-time:
 ```bash
 ./droid -ip 127.0.0.1 -sl -o screenshot
+```
+
+## GUI
+If you would like to test the GUI, you can run this command to boot it up:
+```bash
+python3 main.py -ip 127.0.0.1 -g
 ```

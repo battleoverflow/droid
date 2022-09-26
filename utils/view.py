@@ -6,8 +6,14 @@
 # }                                            #
 ################################################
 
-import tkinter, customtkinter, os, platform
+import tkinter, customtkinter, os, platform, argparse, time
 from subprocess import getoutput
+
+# def commands(self):
+parser = argparse.ArgumentParser()
+parser.add_argument('-ip', '--ip_address', help="IP address of the Android device", default=None, required=False)
+parser.add_argument('-g', '--gui', help="Opens Droid in a graphical user interface (WIP)", action='store_true', default=False, required=False)
+args = parser.parse_args()
 
 if platform.system() == 'Darwin':
     adb = "$HOME/Library/Android/sdk/platform-tools/adb"
@@ -23,7 +29,7 @@ class View(customtkinter.CTk):
             super().__init__()
 
             self.title(f"Droid | v{version}")
-            self.geometry("600x400")
+            self.geometry("1280x720")
             self.set_appearance_mode("Dark")
 
             self.grid_columnconfigure(1, weight=1)
@@ -50,8 +56,14 @@ class View(customtkinter.CTk):
             self.button_2 = customtkinter.CTkButton(master=self.frame_left, text="Disconnect", command=self.btn_disconnect)
             self.button_2.grid(row=3, column=0, pady=10, padx=20)
 
-            self.button_3 = customtkinter.CTkButton(master=self.frame_left, text="Close Droid", command=self.btn_destroy)
-            self.button_3.grid(row=10, column=0, pady=10, padx=20)
+            self.button_3 = customtkinter.CTkButton(master=self.frame_left, text="Reboot", command=self.btn_reboot)
+            self.button_3.grid(row=4, column=0, pady=10, padx=20)
+
+            self.button_4 = customtkinter.CTkButton(master=self.frame_left, text="Screenshot", command=self.btn_screenshot)
+            self.button_4.grid(row=5, column=0, pady=10, padx=20)
+
+            self.button_5 = customtkinter.CTkButton(master=self.frame_left, text="Close Droid", command=self.btn_destroy)
+            self.button_5.grid(row=10, column=0, pady=10, padx=20)
 
             # Main Content
             self.frame_right.rowconfigure((0, 1, 2, 3), weight=1)
@@ -73,13 +85,23 @@ class View(customtkinter.CTk):
             self.mainloop()
 
         def btn_connect(self):
-            os.system(f'{adb} connect 1270.0.0.1')
+            os.system(f'{adb} connect {args.ip_address}')
             print("Connected")
         
         def btn_disconnect(self):
-            os.system(f'{adb} disconnect 1270.0.0.1')
+            os.system(f'{adb} disconnect {args.ip_address}')
             print("Disconnected")
+
+        def btn_reboot(self):
+            os.system(f'{adb} reboot {args.ip_address}')
+            print("Rebooting")
+
+        def btn_screenshot(self):
+            os.system(f"{adb} exec-out screencap -p > screenshot.png")
+            print("Screenshot")
         
         def btn_destroy(self):
-            os.system(f'{adb} disconnect 1270.0.0.1')
+            os.system(f'{adb} disconnect {args.ip_address}')
+            print("Disconnecting...")
+            time.sleep(1.2)
             self.destroy()

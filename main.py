@@ -29,12 +29,12 @@ parser.add_argument('-w', '--wifi', help="Start or stop wifi service for the And
 parser.add_argument('-s', '--screenshot', help="Take a screenshot of the current Android screen", action='store_true', default=False, required=False)
 parser.add_argument('-o', '--output', help="Name of the output file when taking a screenshot (omit the extension)", default=None, required=False)
 parser.add_argument('-l', '--log', help="Outputs Logcat logs in real time to a set file", action='store_true', default=False, required=False)
-parser.add_argument('-g', '--gui', help="Opens Droid in a graphical user interface (WIP) (setting other args does not auto-populate)", action='store_true', default=False, required=False)
+parser.add_argument('-g', '--gui', help="Opens Droid in a graphical user interface (WIP)", action='store_true', default=False, required=False)
 
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "1.2.10"
+version = "1.2.11"
 
 if platform.system() == 'Darwin':
     adb = "$HOME/Library/Android/sdk/platform-tools/adb"

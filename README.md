@@ -1,18 +1,17 @@
 # Droid
 Droid is a remote communications script created to communicate with Android devices on the local network over the Android debug bridge (adb)
 
-NOTE: Script does require Android debug bridge (adb) to be installed before 
-
-First release is now available! Versions for Linux and macOS are currently available.
+NOTE: Script does require Android debug bridge (adb) to be installed on the system.
 
 ## Usage
 ```bash
-./droid -ip 127.0.0.1
+./droid -ip 127.0.0.1 -c
 ```
 
 ## Options
 ```
 -h,   --help	    |	Help menu
+-v,   --version	    |	Version information for Droid
 -ip,  --ip_address  |   IP address of the Android device
 -up,  --upload      |   Absolute path of the APK to upload (ex: ~/Downloads/ApkName.apk)
 -rm,  --remove      |   Removes the old APK with the same package name (requires the -p flag)
@@ -22,10 +21,16 @@ First release is now available! Versions for Linux and macOS are currently avail
 -p,   --package     |   The package name of the APK you would like to replace (ex: com.android.ui)
 -dn,  --download    |   Download a file from the Android device
 -f,   --file        |   Name of the file on your local machine (ex: ~/Downloads/ApkName.apk)
+-fs,  --file_system |   Name & location of the file on the Android device
 -loc, --location    |   Location on the Android device to push or remove the selected file (ex: /sdcard/Downloads)
 -rmf, --rmfile      |   Remove a file from the Android device (set the absolute path using -loc)
 -bl,  --bluetooth   |   Start or stop bluetooth service for the Android device
 -w,  --wifi         |   Start or stop wifi service for the Android device
+-s,  --screenshot   |   Take a screenshot of the current Android screen
+-o,  --output       |   Name of the output file when taking a screenshot (omit the extension)
+-l,  --log          |   Outputs Logcat logs in real time to a set file
+-g,  --gui          |   A graphical user interface built to communicate with an Android device
+-c   --content      |   Update a file on the Android device without downloading it
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network
@@ -59,3 +64,14 @@ You can `stop` the service by running this command (starting the service uses th
 ./droid -ip 127.0.0.1 -w=stop
 ```
 NOTE: When turning the wifi off, if you are communicating with the Android device remotely, this will result in the device being disconnected and unusable until the network is re-established.
+
+This command will take a screenshot of the current Android screen while monitoring Logcat in real-time:
+```bash
+./droid -ip 127.0.0.1 -sl -o screenshot
+```
+
+## GUI
+If you would like to test the GUI, you can run this command to boot it up:
+```bash
+python3 main.py -ip 127.0.0.1 -g
+```

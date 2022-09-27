@@ -22,19 +22,21 @@ parser.add_argument('-r', '--reboot', help="Remotely reboots the Android device"
 parser.add_argument('-p', '--package', help="The package name of the APK (ex: com.android.ui)", default=None, required=False)
 parser.add_argument('-dn', '--download', help="Download a file from the Android device", default=None, required=False)
 parser.add_argument('-f', '--file', help="Name & location of the file on your local machine", default=None, required=False)
+parser.add_argument('-fs', '--file_system', help="Name & location of the file on the Android device", default=None, required=False)
 parser.add_argument('-loc', '--location', help="Location on the Android device to push or remove the selected file", default=None, required=False)
 parser.add_argument('-rmf', '--rmfile', help="Remove a file from the Android device (set the absolute path using -loc)", action='store_true', default=False, required=False)
 parser.add_argument('-bl', '--bluetooth', help="Start or stop bluetooth service for the Android device", default=None, required=False)
 parser.add_argument('-w', '--wifi', help="Start or stop wifi service for the Android device", default=None, required=False)
 parser.add_argument('-s', '--screenshot', help="Take a screenshot of the current Android screen", action='store_true', default=False, required=False)
-parser.add_argument('-o', '--output', help="Name of the output file when taking a screenshot (omit the extension)", default=None, required=False)
+parser.add_argument('-o', '--output', help="Name of the output file when taking a screenshot (omit the extension)", default="screenshot", required=False)
 parser.add_argument('-l', '--log', help="Outputs Logcat logs in real time to a set file", action='store_true', default=False, required=False)
-parser.add_argument('-g', '--gui', help="Opens Droid in a graphical user interface (WIP)", action='store_true', default=False, required=False)
+parser.add_argument('-g', '--gui', help="Opens Droid in a graphical user interface", action='store_true', default=False, required=False)
+parser.add_argument('-co', '--content', help="Update a file on the Android device without downloading it", default=None, required=False)
 
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "1.2.11"
+version = "1.3.13"
 
 if platform.system() == 'Darwin':
     adb = "$HOME/Library/Android/sdk/platform-tools/adb"
@@ -208,6 +210,17 @@ class Droid:
         except:
             print("Device is unresponsive. Please check connection")
 
+    """
+    Modifies any file on the Android device without requiring a pull
+    """
+    def modify_file(self):
+        try:
+            os.system(f"{adb} shell 'echo '{args.content}' > {args.file_system}'") # Modifies a file
+            print(f"Successfully modified file: {args.file_system}")
+            print(f"Content added: {args.content}")
+        except:
+            print("Device is unresponsive. Please check connection")
+
 
 if __name__ == '__main__':
 
@@ -218,6 +231,9 @@ if __name__ == '__main__':
         if args.version:
             print(f"Droid Version: {version}")
             sys.exit(0)
+
+        if args.content != None and args.file_system != None:
+            D.modify_file()
 
         if args.connect:
             D.connect_ip()

@@ -21,14 +21,16 @@ NOTE: Script does require Android debug bridge (adb) to be installed on the syst
 -p,   --package     |   The package name of the APK you would like to replace (ex: com.android.ui)
 -dn,  --download    |   Download a file from the Android device
 -f,   --file        |   Name of the file on your local machine (ex: ~/Downloads/ApkName.apk)
+-fs,  --file_system |   Name & location of the file on the Android device
 -loc, --location    |   Location on the Android device to push or remove the selected file (ex: /sdcard/Downloads)
 -rmf, --rmfile      |   Remove a file from the Android device (set the absolute path using -loc)
 -bl,  --bluetooth   |   Start or stop bluetooth service for the Android device
 -w,  --wifi         |   Start or stop wifi service for the Android device
--o,  --output       |   Name of the output file when taking a screenshot (omit the extension)
 -s,  --screenshot   |   Take a screenshot of the current Android screen
+-o,  --output       |   Name of the output file when taking a screenshot (omit the extension)
 -l,  --log          |   Outputs Logcat logs in real time to a set file
--g,  --gui          |   A graphical user interface built to communicate with an Android device (WIP)
+-g,  --gui          |   A graphical user interface built to communicate with an Android device
+-c   --content      |   Update a file on the Android device without downloading it
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network

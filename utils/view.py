@@ -127,7 +127,7 @@ class View(customtkinter.CTk):
 
                 if exists(json_file_name) and getsize(json_file_name) > 4:
                     try:
-                        connect_ip_addr = ip_addr[self.ip_addr_json.get()]
+                        connect_ip_addr = getoutput(f'{adb} connect {ip_addr[self.ip_addr_json.get()]}')
                     except KeyError:
                         connect_ip_addr = getoutput(f'{adb} connect {self.ip_addr.get()}')
                 else:

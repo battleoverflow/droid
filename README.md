@@ -1,9 +1,9 @@
 # Droid
-Droid is a remote communications script created to communicate with Android devices on the local network over the Android debug bridge (adb)
+Droid is a remote communication application created to communicate with Android devices on the local network over the Android debug bridge (adb). Droid allows you to completely control the Android device using multiple options, including a CLI and a GUI.
 
-NOTE: Script does require Android debug bridge (adb) to be installed on the system.
+IMPORTANT NOTE: Script does require Android debug bridge (adb) to be installed on the system.
 
-## Usage
+## Simple usage
 ```bash
 ./droid -ip 127.0.0.1 -c
 ```
@@ -30,7 +30,7 @@ NOTE: Script does require Android debug bridge (adb) to be installed on the syst
 -o,  --output       |   Name of the output file when taking a screenshot (omit the extension)
 -l,  --log          |   Outputs Logcat logs in real time to a set file
 -g,  --gui          |   A graphical user interface built to communicate with an Android device
--c   --content      |   Update a file on the Android device without downloading it
+-co   --content     |   Update a file on the Android device without downloading it
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network
@@ -71,7 +71,7 @@ This command will take a screenshot of the current Android screen while monitori
 ```
 
 ## GUI
-If you would like to test the GUI, you can run this command to boot it up:
+If you would like to run the GUI, you can run this command to boot it up. Almost all CLI options are available in the GUI:
 ```bash
-python3 main.py -ip 127.0.0.1 -g
+./droid -g
 ```

@@ -71,7 +71,11 @@ This command will take a screenshot of the current Android screen while monitori
 ```
 
 ## GUI
+You can now double-click the Droid icon to run it on most platforms
+
 If you would like to run the GUI, you can run this command to boot it up. Almost all CLI options are available in the GUI:
 ```bash
 ./droid -g
 ```
+
+NOTE: If you would like to use the droid_ip_addr.json file in your application, please make sure it's saved in the `/home/${whoami}` directory (or just `~`)

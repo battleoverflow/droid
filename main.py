@@ -36,7 +36,7 @@ parser.add_argument('-co', '--content', help="Update a file on the Android devic
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "1.3.16"
+version = "1.3.17"
 
 # Default Android Debug Bridge (adb) location on specific platforms
 if platform.system() == 'Darwin':
@@ -284,6 +284,13 @@ if __name__ == '__main__':
                 V.__init__()
             except TypeError:
                 pass
+    elif len(sys.argv) == 1:
+        V = View(version)
+
+        try:
+            V.__init__()
+        except TypeError:
+            pass
     else:
         print("Nothing happened. Try using -h")
         sys.exit(0)

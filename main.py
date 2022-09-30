@@ -36,7 +36,7 @@ parser.add_argument('-co', '--content', help="Update a file on the Android devic
 args = parser.parse_args()
 
 author = "Hifumi1337"
-version = "1.3.19"
+version = "1.4.19"
 
 # Default Android Debug Bridge (adb) location on specific platforms
 if platform.system() == 'Darwin':

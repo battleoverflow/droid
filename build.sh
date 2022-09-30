@@ -13,7 +13,7 @@ function build_droid() {
     elif [[ "$OSTYPE" == "darwin"* ]]
     then
         # macOS
-        pyinstaller --noconfirm --onefile --add-data "/usr/local/lib/python3.10/site-packages/customtkinter:customtkinter/" "main.py" --name droid-$(uname)
+        pyinstaller --noconfirm --onefile --add-data "/usr/local/lib/python3.10/site-packages/customtkinter:customtkinter/" "droid-$(uname).spec" --name droid-$(uname)
     else
         pyinstaller --noconfirm --onefile --add-data "/usr/local/lib/python3.10/site-packages/customtkinter;customtkinter/" "main.py" --name droid-$(echo $current_os)
     fi

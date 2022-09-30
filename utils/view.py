@@ -19,6 +19,17 @@ elif platform.system() == 'Linux':
     whoami = getoutput("whoami")
     adb = f"/home/{whoami}/Android/Sdk/platform-tools/adb"
 
+if platform.system() == 'Darwin':
+    import sys, os
+    
+    def import_resources(relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
 INFO_CODE = "[INFO]"
 
 class View(customtkinter.CTk):
@@ -33,8 +44,9 @@ class View(customtkinter.CTk):
             self.grid_columnconfigure(1, weight=1)
             self.grid_rowconfigure(0, weight=1)
 
-            img = PhotoImage(file='assets/droid.png')
-            self.iconphoto(True, img)
+            if platform.system() == 'Darwin':
+                img = PhotoImage(file=f"{import_resources('assets/droid.png')}")
+                self.iconphoto(True, img)
 
             # Sidebar
             self.frame_left = customtkinter.CTkFrame(master=self, width=200, corner_radius=0)

@@ -77,5 +77,3 @@ If you would like to run the GUI, you can run this command to boot it up. Almost
 ```bash
 ./droid -g
 ```
-
-NOTE: If you would like to use the droid_ip_addr.json file in your application, please make sure it's saved in the `/home/${whoami}` directory (or just `~`)

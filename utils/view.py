@@ -7,7 +7,7 @@
 ################################################
 
 import tkinter, customtkinter, platform, time, json
-from tkinter import messagebox
+from tkinter import PhotoImage, messagebox
 from subprocess import getoutput
 from os.path import getsize, exists
 
@@ -20,8 +20,6 @@ elif platform.system() == 'Linux':
     adb = f"/home/{whoami}/Android/Sdk/platform-tools/adb"
 
 INFO_CODE = "[INFO]"
-# WARNING_CODE = "[WARNING]"
-# ERROR_CODE = "[ERROR]"
 
 class View(customtkinter.CTk):
 
@@ -34,6 +32,9 @@ class View(customtkinter.CTk):
 
             self.grid_columnconfigure(1, weight=1)
             self.grid_rowconfigure(0, weight=1)
+
+            img = PhotoImage(file='assets/droid.png')
+            self.iconphoto(True, img)
 
             # Sidebar
             self.frame_left = customtkinter.CTkFrame(master=self, width=200, corner_radius=0)
@@ -94,8 +95,105 @@ class View(customtkinter.CTk):
 
         def btn_connect(self):
 
+            # Buttons
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
             try:
                 self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
             except AttributeError:
                 pass
 
@@ -104,28 +202,23 @@ class View(customtkinter.CTk):
             except AttributeError:
                 pass
 
-            try:
-                self.stop_service.destroy()
-            except AttributeError:
-                pass
-
-            self.ip_addr = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="IP Address of the Android device")
+            self.ip_addr = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="IP Address of the Android device")
             self.ip_addr.grid(row=6, column=1, pady=10, padx=20)
 
-            self.ip_addr_json = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Key assigned in JSON file (ex: localhost)")
-            self.ip_addr_json.grid(row=7, column=1, pady=10, padx=20)
+            self.json_file_name = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Location of the JSON file on the local system (ex: ~/Documents/droid_ip_addr.json)")
+            self.json_file_name.grid(row=7, column=1, pady=10, padx=20)
 
-            json_file_name = "droid_ip_addr.json"
-
-            try:
-                with open(json_file_name, "r") as ip_file:
-                    ip_addr = json.load(ip_file)
-            except FileNotFoundError:
-                pass
+            self.ip_addr_json = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Key assigned in JSON file (ex: localhost)")
+            self.ip_addr_json.grid(row=8, column=1, pady=10, padx=20)
 
             def submit():
+                if exists(self.json_file_name.get()) and getsize(self.json_file_name.get()) > 4:
+                    try:
+                        with open(self.json_file_name.get(), "r") as ip_file:
+                            ip_addr = json.load(ip_file)
+                    except FileNotFoundError:
+                        pass
 
-                if exists(json_file_name) and getsize(json_file_name) > 4:
                     try:
                         connect_ip_addr = getoutput(f'{adb} connect {ip_addr[self.ip_addr_json.get()]}')
                     except KeyError:
@@ -138,23 +231,80 @@ class View(customtkinter.CTk):
                 self.droid_logs_lvl_1 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {connect_ip_addr}", corner_radius=6, fg_color=("white", "gray38"))
                 self.droid_logs_lvl_1.grid(row=1, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
 
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
+            self.start_connect = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_connect.grid(row=9, column=1, pady=10, padx=20)
 
         def btn_download_file(self):
 
+            # Buttons
             try:
-                self.filename.destroy()
+                self.start_connect.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.new_content.destroy()
+                self.start_file_upload.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.stop_service.destroy()
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
             except AttributeError:
                 pass
 
@@ -163,7 +313,47 @@ class View(customtkinter.CTk):
             except AttributeError:
                 pass
 
-            self.download_file = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Location of File on the Android device")
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.download_file = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Location of File on the Android device")
             self.download_file.grid(row=6, column=1, pady=10, padx=20)
 
             def submit():
@@ -173,20 +363,127 @@ class View(customtkinter.CTk):
                 self.droid_logs_lvl_2 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {download_android_file}", corner_radius=6, fg_color=("white", "gray38"))
                 self.droid_logs_lvl_2.grid(row=2, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
 
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
+            self.start_file_download = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_file_download.grid(row=7, column=1, pady=10, padx=20)
 
         def btn_upload_file(self):
 
+            # Buttons
             try:
-                self.stop_service.destroy()
+                self.start_connect.destroy()
             except AttributeError:
                 pass
 
-            self.upload_file = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Location to push the file on the Android device")
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr_json.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.upload_file = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Location to push the file on the Android device")
             self.upload_file.grid(row=6, column=1, pady=10, padx=20)
 
-            self.filename = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Name of the file on your local machine")
+            self.filename = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Name of the file on your local machine")
             self.filename.grid(row=7, column=1, pady=10, padx=20)
 
             def submit():
@@ -197,94 +494,80 @@ class View(customtkinter.CTk):
                 
                 self.droid_logs_lvl_3.grid(row=3, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
 
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
+            self.start_file_upload = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_file_upload.grid(row=8, column=1, pady=10, padx=20)
 
         def btn_upload_apk(self):
-            
+
+            # Buttons
             try:
-                self.filename.destroy()
+                self.start_connect.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.new_content.destroy()
+                self.start_file_download.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.stop_service.destroy()
+                self.start_file_upload.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.ip_addr_json.destroy()
-            except AttributeError:
-                pass
-
-            self.name_of_apk = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Absolute path of the APK")
-            self.name_of_apk.grid(row=6, column=1, pady=10, padx=20)
-
-            def submit():
-                upload_android_apk = getoutput(f'{adb} install -r {self.name_of_apk.get()}')
-                print(f"{INFO_CODE} {upload_android_apk}")
-
-                self.droid_logs_lvl_4 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {upload_android_apk}", corner_radius=6, fg_color=("white", "gray38"))
-                
-                self.droid_logs_lvl_4.grid(row=4, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
-            
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
-
-        def btn_remove_apk(self):
-
-            try:
-                self.filename.destroy()
+                self.start_apk_remove.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.new_content.destroy()
+                self.start_disconnect.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.stop_service.destroy()
+                self.start_reboot.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.ip_addr_json.destroy()
-            except AttributeError:
-                pass
-
-            self.apk_package_name = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Package Name for APK")
-            self.apk_package_name.grid(row=6, column=1, pady=10, padx=20)
-
-            def submit():
-                remove_android_apk = getoutput(f'{adb} uninstall {self.apk_package_name.get()}')
-                print(f"{INFO_CODE} {remove_android_apk}")
-
-                self.droid_logs_lvl_5 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {remove_android_apk}", corner_radius=6, fg_color=("white", "gray38"))
-                self.droid_logs_lvl_5.grid(row=5, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
-
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
-        
-        def btn_disconnect(self):
-
-            try:
-                self.filename.destroy()
+                self.start_screenshot.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.new_content.destroy()
+                self.start_bluetooth.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.stop_service.destroy()
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
             except AttributeError:
                 pass
 
@@ -292,91 +575,6 @@ class View(customtkinter.CTk):
                 self.ip_addr_json.destroy()
             except AttributeError:
                 pass
-
-            self.ip_addr = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="IP Address of the Android device (leave blank to disconnect everything)")
-            self.ip_addr.grid(row=6, column=1, pady=10, padx=20)
-
-            def submit():
-                disconnect_ip_addr = getoutput(f'{adb} disconnect {self.ip_addr.get()}')
-                print(f"{INFO_CODE} {disconnect_ip_addr}")
-
-                self.droid_logs_lvl_6 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {disconnect_ip_addr}", corner_radius=6, fg_color=("white", "gray38"))
-                self.droid_logs_lvl_6.grid(row=6, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
-
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
-
-        def btn_reboot(self):
-
-            try:
-                self.filename.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.new_content.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.stop_service.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.ip_addr_json.destroy()
-            except AttributeError:
-                pass
-
-            self.ip_addr = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="IP Address of the Android device")
-            self.ip_addr.grid(row=6, column=1, pady=10, padx=20)
-
-            def submit():
-                reboot_output = getoutput(f'{adb} reboot {self.ip_addr.get()}')
-                print(f"{INFO_CODE} {reboot_output}")
-
-                self.droid_logs_lvl_7 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {reboot_output}", corner_radius=6, fg_color=("white", "gray38"))
-                self.droid_logs_lvl_7.grid(row=7, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
-
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
-
-        def btn_screenshot(self):
-            
-            try:
-                self.filename.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.new_content.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.stop_service.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.ip_addr_json.destroy()
-            except AttributeError:
-                pass
-
-            self.screenshot_file = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Filename (omit extension)")
-            self.screenshot_file.grid(row=6, column=1, pady=10, padx=20)
-
-            def submit():
-                screenshot_output = getoutput(f"{adb} exec-out screencap -p > droid_{self.screenshot_file.get()}.png")
-                print(f"{INFO_CODE} {screenshot_output}")
-
-                self.droid_logs_lvl_8 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {screenshot_output}", corner_radius=6, fg_color=("white", "gray38"))
-                self.droid_logs_lvl_8.grid(row=8, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
-
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
-
-        def btn_bluetooth(self):
 
             try:
                 self.download_file.destroy()
@@ -389,17 +587,7 @@ class View(customtkinter.CTk):
                 pass
 
             try:
-                self.name_of_apk.destroy()
-            except AttributeError:
-                pass
-
-            try:
                 self.filename.destroy()
-            except AttributeError:
-                pass
-
-            try:
-                self.new_content.destroy()
             except AttributeError:
                 pass
 
@@ -409,7 +597,110 @@ class View(customtkinter.CTk):
                 pass
 
             try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
                 self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.name_of_apk = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Absolute path of the APK")
+            self.name_of_apk.grid(row=6, column=1, pady=10, padx=20)
+
+            def submit():
+                upload_android_apk = getoutput(f'{adb} install -r {self.name_of_apk.get()}')
+                print(f"{INFO_CODE} {upload_android_apk}")
+
+                self.droid_logs_lvl_4 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {upload_android_apk}", corner_radius=6, fg_color=("white", "gray38"))
+                
+                self.droid_logs_lvl_4.grid(row=4, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
+            
+            self.start_apk_upload = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_apk_upload.grid(row=7, column=1, pady=10, padx=20)
+
+        def btn_remove_apk(self):
+
+            # Buttons
+            try:
+                self.start_connect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
             except AttributeError:
                 pass
 
@@ -419,7 +710,580 @@ class View(customtkinter.CTk):
                 pass
 
             try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
                 self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.apk_package_name = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Package Name for APK")
+            self.apk_package_name.grid(row=6, column=1, pady=10, padx=20)
+
+            def submit():
+                remove_android_apk = getoutput(f'{adb} uninstall {self.apk_package_name.get()}')
+                print(f"{INFO_CODE} {remove_android_apk}")
+
+                self.droid_logs_lvl_5 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {remove_android_apk}", corner_radius=6, fg_color=("white", "gray38"))
+                self.droid_logs_lvl_5.grid(row=5, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
+
+            self.start_apk_remove = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_apk_remove.grid(row=7, column=1, pady=10, padx=20)
+        
+        def btn_disconnect(self):
+
+            # Buttons
+            try:
+                self.start_connect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr_json.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.ip_addr = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="IP Address of the Android device (leave blank to disconnect everything)")
+            self.ip_addr.grid(row=6, column=1, pady=10, padx=20)
+
+            def submit():
+                disconnect_ip_addr = getoutput(f'{adb} disconnect {self.ip_addr.get()}')
+                print(f"{INFO_CODE} {disconnect_ip_addr}")
+
+                self.droid_logs_lvl_6 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {disconnect_ip_addr}", corner_radius=6, fg_color=("white", "gray38"))
+                self.droid_logs_lvl_6.grid(row=6, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
+
+            self.start_disconnect = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_disconnect.grid(row=7, column=1, pady=10, padx=20)
+
+        def btn_reboot(self):
+
+            # Buttons
+            try:
+                self.start_connect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr_json.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.ip_addr = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="IP Address of the Android device")
+            self.ip_addr.grid(row=6, column=1, pady=10, padx=20)
+
+            def submit():
+                reboot_output = getoutput(f'{adb} reboot {self.ip_addr.get()}')
+                print(f"{INFO_CODE} {reboot_output}")
+
+                self.droid_logs_lvl_7 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {reboot_output}", corner_radius=6, fg_color=("white", "gray38"))
+                self.droid_logs_lvl_7.grid(row=7, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
+
+            self.start_reboot = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_reboot.grid(row=7, column=1, pady=10, padx=20)
+
+        def btn_screenshot(self):
+
+            # Buttons
+            try:
+                self.start_connect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr_json.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            self.screenshot_file = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Filename (omit extension)")
+            self.screenshot_file.grid(row=6, column=1, pady=10, padx=20)
+
+            def submit():
+                screenshot_output = getoutput(f"{adb} exec-out screencap -p > droid_{self.screenshot_file.get()}.png")
+                print(f"{INFO_CODE} {screenshot_output}")
+
+                self.droid_logs_lvl_8 = customtkinter.CTkLabel(master=self.frame_right, text=f"{INFO_CODE} {screenshot_output}", corner_radius=6, fg_color=("white", "gray38"))
+                self.droid_logs_lvl_8.grid(row=8, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
+
+            self.start_screenshot = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_screenshot.grid(row=7, column=1, pady=10, padx=20)
+
+        def btn_bluetooth(self):
+
+            # Buttons
+            try:
+                self.start_connect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr_json.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
             except AttributeError:
                 pass
 
@@ -456,46 +1320,78 @@ class View(customtkinter.CTk):
                 self.droid_logs_lvl_12.grid(row=12, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
 
             
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Start Bluetooth", command=start_bluetooth)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
+            self.start_bluetooth = customtkinter.CTkButton(master=self.frame_middle, text="Start Bluetooth", command=start_bluetooth)
+            self.start_bluetooth.grid(row=1, column=0, pady=10, padx=20)
 
-            self.stop_service = customtkinter.CTkButton(master=self.frame_middle, text="Stop Bluetooth", command=stop_bluetooth)
-            self.stop_service.grid(row=2, column=0, pady=10, padx=20)
+            self.stop_bluetooth = customtkinter.CTkButton(master=self.frame_middle, text="Stop Bluetooth", command=stop_bluetooth)
+            self.stop_bluetooth.grid(row=2, column=0, pady=10, padx=20)
 
         def btn_wifi(self):
 
+            # Buttons
             try:
-                self.download_file.destroy()
+                self.start_connect.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.upload_file.destroy()
+                self.start_file_download.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.name_of_apk.destroy()
+                self.start_file_upload.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.filename.destroy()
+                self.start_apk_upload.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.new_content.destroy()
+                self.start_apk_remove.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.apk_package_name.destroy()
+                self.start_disconnect.destroy()
             except AttributeError:
                 pass
 
             try:
-                self.name_of_file.destroy()
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_modification.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
             except AttributeError:
                 pass
 
@@ -505,7 +1401,47 @@ class View(customtkinter.CTk):
                 pass
 
             try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
                 self.screenshot_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.new_content.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
             except AttributeError:
                 pass
 
@@ -542,23 +1478,130 @@ class View(customtkinter.CTk):
                 self.droid_logs_lvl_16.grid(row=16, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
 
 
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Start Wifi", command=start_wifi)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
+            self.start_wifi = customtkinter.CTkButton(master=self.frame_middle, text="Start Wifi", command=start_wifi)
+            self.start_wifi.grid(row=1, column=0, pady=10, padx=20)
 
-            self.stop_service = customtkinter.CTkButton(master=self.frame_middle, text="Stop Wifi", command=stop_wifi)
-            self.stop_service.grid(row=2, column=0, pady=10, padx=20)
+            self.stop_wifi = customtkinter.CTkButton(master=self.frame_middle, text="Stop Wifi", command=stop_wifi)
+            self.stop_wifi.grid(row=2, column=0, pady=10, padx=20)
 
         def btn_modify_file(self):
 
+            # Buttons
             try:
-                self.stop_service.destroy()
+                self.start_connect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_download.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_file_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_upload.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_apk_remove.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_disconnect.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_reboot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_screenshot.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_bluetooth.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.start_wifi.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.stop_wifi.destroy()
+            except AttributeError:
+                pass
+
+            # Input Fields
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.json_file_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr_json.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.download_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.upload_file.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.filename.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.name_of_apk.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.apk_package_name.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.ip_addr.destroy()
+            except AttributeError:
+                pass
+
+            try:
+                self.screenshot_file.destroy()
             except AttributeError:
                 pass
             
-            self.name_of_file = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Name of the file to modify")
+            self.name_of_file = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Name of the file to modify")
             self.name_of_file.grid(row=6, column=1, pady=10, padx=20)
 
-            self.new_content = customtkinter.CTkEntry(master=self.frame_middle, width=300, placeholder_text="Content to add into the modified file")
+            self.new_content = customtkinter.CTkEntry(master=self.frame_middle, width=400, placeholder_text="Content to add into the modified file")
             self.new_content.grid(row=7, column=1, pady=10, padx=20)
 
             def submit():
@@ -570,8 +1613,8 @@ class View(customtkinter.CTk):
                 
                 self.droid_logs_lvl_17.grid(row=17, column=1, columnspan=5, rowspan=1, pady=5, padx=5, sticky="nsew")
 
-            self.start_service = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
-            self.start_service.grid(row=1, column=0, pady=10, padx=20)
+            self.start_file_modification = customtkinter.CTkButton(master=self.frame_middle, text="Submit", command=submit)
+            self.start_file_modification.grid(row=8, column=1, pady=10, padx=20)
         
         def btn_help(self):
             msg = "\n \

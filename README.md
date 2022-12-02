@@ -1,4 +1,7 @@
 # Droid
+
+<img src=".github/assets/droid_logo.png" />
+
 Droid is a remote communication application created to communicate with Android devices on the local network over the Android debug bridge (adb). Droid allows you to completely control the Android device using multiple options, including a CLI and a GUI.
 
 IMPORTANT NOTE: Script does require Android debug bridge (adb) to be installed on the system.

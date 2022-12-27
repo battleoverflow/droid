@@ -1,10 +1,8 @@
-################################################
-# File: view.py                                #
-#                                              #
-# Author(s): {                                 #
-#   Hifumi1337 <https://github.com/Hifumi1337> #
-# }                                            #
-################################################
+"""
+    Owner: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    Project: Droid
+    License: MIT
+"""
 
 import tkinter, customtkinter, platform, time, json
 from tkinter import PhotoImage, messagebox

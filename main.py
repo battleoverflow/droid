@@ -1,10 +1,8 @@
-################################################
-# File: main.py                                #
-#                                              #
-# Author(s): {                                 #
-#   Hifumi1337 <https://github.com/Hifumi1337> #
-# }                                            #
-################################################
+"""
+    Owner: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    Project: Droid
+    License: MIT
+"""
 
 import os, argparse, sys, time, platform
 from subprocess import getoutput
@@ -35,7 +33,7 @@ parser.add_argument('-co', '--content', help="Update a file on the Android devic
 
 args = parser.parse_args()
 
-author = "Hifumi1337"
+author = "azazelm3dj3d"
 version = "1.4.20"
 
 # Default Android Debug Bridge (adb) location on specific platforms

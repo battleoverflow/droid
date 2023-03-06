@@ -1,12 +1,13 @@
 """
     Owner: azazelm3dj3d (https://github.com/azazelm3dj3d)
-    Project: Droid
+    Project: Droid (https://github.com/azazelm3dj3d/droid)
     License: MIT
 """
 
 import os, argparse, sys, time, platform
 from subprocess import getoutput
-from utils.view import View
+from droid.view import View
+# from _tkinter import TclError
 
 parser = argparse.ArgumentParser()
 
@@ -34,7 +35,7 @@ parser.add_argument('-co', '--content', help="Update a file on the Android devic
 args = parser.parse_args()
 
 author = "azazelm3dj3d"
-version = "1.4.20"
+version = "1.4.21"
 
 # Default Android Debug Bridge (adb) location on specific platforms
 if platform.system() == 'Darwin':
@@ -220,75 +221,83 @@ class Droid:
         except:
             print("Device is unresponsive. Please check connection")
 
+    def main():
+        if len(sys.argv) > 1:
+            D = Droid()
+            D.banner()
 
-if __name__ == '__main__':
+            if args.version:
+                print(f"Droid Version: {version}")
+                sys.exit(0)
 
-    if len(sys.argv) > 1:
-        D = Droid()
-        D.banner()
+            if args.content != None and args.file_system != None:
+                D.modify_file()
 
-        if args.version:
-            print(f"Droid Version: {version}")
-            sys.exit(0)
-
-        if args.content != None and args.file_system != None:
-            D.modify_file()
-
-        if args.connect:
-            D.connect_ip()
-
-            try:
+            if args.connect:
                 D.connect_ip()
-            except AttributeError:
-                print("Please enter an IP address by using -ip")
 
-        if args.remove and args.package:
-            D.remove_apk()
-        
-        if args.file and args.location:
-            D.upload_file()
-        
-        if args.rmfile and args.location:
-            D.remove_file()
+                try:
+                    D.connect_ip()
+                except AttributeError:
+                    print("Please enter an IP address by using -ip")
 
-        if args.upload:
-            D.upload_apk()
-        
-        if args.download:
-            D.download()
+            if args.remove and args.package:
+                D.remove_apk()
+            
+            if args.file and args.location:
+                D.upload_file()
+            
+            if args.rmfile and args.location:
+                D.remove_file()
 
-        if args.reboot:
-            D.reboot()
-        
-        if args.disconnect:
-            D.disconnect_ip()
-        
-        if args.bluetooth:
-            D.bluetooth()
-        
-        if args.wifi:
-            D.wifi()
-        
-        if args.screenshot:
-            D.screenshot()
+            if args.upload:
+                D.upload_apk()
+            
+            if args.download:
+                D.download()
 
-        if args.log:
-            D.logcat()
+            if args.reboot:
+                D.reboot()
+            
+            if args.disconnect:
+                D.disconnect_ip()
+            
+            if args.bluetooth:
+                D.bluetooth()
+            
+            if args.wifi:
+                D.wifi()
+            
+            if args.screenshot:
+                D.screenshot()
 
-        if args.gui:
+            if args.log:
+                D.logcat()
+
+            if args.gui:
+                V = View(version)
+
+                try:
+                    V.__init__()
+                except TypeError:
+                    pass
+        elif len(sys.argv) == 1:
             V = View(version)
 
             try:
                 V.__init__()
             except TypeError:
                 pass
-    elif len(sys.argv) == 1:
-        V = View(version)
+        else:
+            print("Nothing happened. Try using -h")
+            sys.exit(0)
+        
 
-        try:
-            V.__init__()
-        except TypeError:
-            pass
-    else:
-        print("Nothing happened. Try using -h")
-        sys.exit(0)
+if __name__ == '__main__':
+    Droid.main()
+    
+    # Code for the logo
+    # try:
+    #     Droid.main()
+    # except TclError:
+    #     print("Missing logo. Only CLI available.")

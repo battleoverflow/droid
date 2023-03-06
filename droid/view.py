@@ -1,6 +1,6 @@
 """
     Owner: azazelm3dj3d (https://github.com/azazelm3dj3d)
-    Project: Droid
+    Project: Droid (https://github.com/azazelm3dj3d/droid)
     License: MIT
 """
 
@@ -42,9 +42,10 @@ class View(customtkinter.CTk):
             self.grid_columnconfigure(1, weight=1)
             self.grid_rowconfigure(0, weight=1)
 
-            if platform.system() == 'Darwin':
-                img = PhotoImage(file=f"{import_resources('assets/droid.png')}")
-                self.iconphoto(True, img)
+            # Logo isn't working with PyPI, removing for now
+            # if platform.system() == 'Darwin':
+            #     img = PhotoImage(file=f"{import_resources('assets/droid.png')}")
+            #     self.iconphoto(True, img)
 
             # Sidebar
             self.frame_left = customtkinter.CTkFrame(master=self, width=200, corner_radius=0)

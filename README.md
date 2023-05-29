@@ -2,22 +2,42 @@
 
 <img src="https://raw.githubusercontent.com/azazelm3dj3d/droid/main/.github/assets/droid_logo.png" />
 
-Droid is a remote communication application created to communicate with Android devices on the local network over the Android debug bridge (adb). Droid allows you to completely control the Android device using multiple options, including a CLI and a GUI.
+Droid is a desktop application created to communicate with Android devices on the local network over the Android debug bridge (adb). You can access the Android device directly over USB or connect to the device through Droid via `adb`. Droid allows you to completely control the Android device using multiple options, including a CLI and a GUI.
 
-IMPORTANT NOTE: Script does require Android debug bridge (adb) to be installed on the system.
+IMPORTANT NOTE: Application does require Android debug bridge (adb) to be installed on the system.
 
 ## Install
-Droid can be installed via `pip`:
+
+Droid can be installed via `pip`
+
 ```bash
 pip install droid
 ```
 
-## Simple usage
+## GUI
+
+If you would like to run the GUI, you can run this command to boot it up
+
+```bash
+droid
+
+# or
+
+droid -g
+```
+
+Current state of the user interface
+
+<img src="https://raw.githubusercontent.com/azazelm3dj3d/droid/main/.github/assets/gui.png" />
+
+## Simple usage (CLI)
+
 ```bash
 droid -ip 127.0.0.1 -c
 ```
 
 ## Options
+
 ```
 -h,   --help	    |	Help menu
 -v,   --version	    |	Version information for Droid
@@ -43,50 +63,53 @@ droid -ip 127.0.0.1 -c
 ```
 
 I would recommend running this command before doing anything else to confirm you can successfully connect to the Android device on your network
+
 ```bash
 droid -ip 127.0.0.1 -c
 ```
 
 ## Example(s)
+
 This example connects to the Android device (127.0.0.1), removes the specified APK package (`com.android.ui`), and then uploads a new APK called `test_apk_v1.apk`
+
 ```bash
 droid -ip 127.0.0.1 -c -rm -p com.android.ui -up ~/Downloads/test_apk_v1.apk
 ```
 
 This example downloads a test images from the Android device onto your local machine (automatically saves it in the ~/Downloads folder on most platforms)
+
 ```bash
 droid -ip 127.0.0.1 --download /sdcard/cool_pic.png
 ```
 
 Once you're finished working within the environment, you can run this command to disconnect from the Android device:
+
 ```bash
 droid -ip 127.0.0.1 -d
 ```
 
 We now have the option to control the bluetooth service on Android devices. You can `start` the service by running this command (stopping the service uses the `stop` argument):
+
 ```bash
 droid -ip 127.0.0.1 -bl=start
 ```
 
 You can `stop` the service by running this command (starting the service uses the `start` argument):
+
 ```bash
 droid -ip 127.0.0.1 -w=stop
 ```
+
 NOTE: When turning the wifi off, if you are communicating with the Android device remotely, this will result in the device being disconnected and unusable until the network is re-established.
 
 This command will take a screenshot of the current Android screen while monitoring Logcat in real-time:
+
 ```bash
 droid -ip 127.0.0.1 -sl -o screenshot
 ```
 
-## GUI
-You can now double-click the Droid icon to run it on most platforms
+# More Info
 
-If you would like to run the GUI, you can run this command to boot it up. Almost all CLI options are available in the GUI:
-```bash
-droid
+A wiki for common Android snippets is also available. This wiki shows examples of how Droid can used with the Android operating system
 
-# or
-
-droid -g
-```
+Wiki: https://github.com/azazelm3dj3d/droid/wiki/Helpful-Android-Snippets

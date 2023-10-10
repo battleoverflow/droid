@@ -14,6 +14,8 @@ Droid can be installed via `pip`
 pip install droid
 ```
 
+You can also download the executable from `itch.io`: https://0xazazelm3dj3d.itch.io/droid
+
 ## GUI
 
 If you would like to run the GUI, you can run this command to boot it up

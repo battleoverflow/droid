@@ -1,6 +1,6 @@
 """
-    Owner: azazelm3dj3d (https://github.com/azazelm3dj3d)
-    Project: Droid (https://github.com/azazelm3dj3d/droid)
+    Owner: battleoverflow (https://github.com/battleoverflow)
+    Project: Droid (https://github.com/battleoverflow/droid)
     License: MIT
 """
 

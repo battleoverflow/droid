@@ -1,6 +1,6 @@
 """
-    Owner: azazelm3dj3d (https://github.com/azazelm3dj3d)
-    Project: Droid (https://github.com/azazelm3dj3d/droid)
+    Owner: battleoverflow (https://github.com/battleoverflow)
+    Project: Droid (https://github.com/battleoverflow/droid)
     License: MIT
 """
 
@@ -34,8 +34,8 @@ parser.add_argument('-co', '--content', help="Update a file on the Android devic
 
 args = parser.parse_args()
 
-author = "azazelm3dj3d"
-version = "1.4.21"
+author = "battleoverflow"
+version = "1.4.22"
 
 # Default Android Debug Bridge (adb) location on specific platforms
 if platform.system() == 'Darwin':

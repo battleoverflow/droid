@@ -2,7 +2,7 @@
 
 function Build-Droid {
     $loggedInUser = ([System.Environment]::UserName)
-    $version = "1.4.21"
+    $version = "1.4.22"
 
     if (((Get-CimInstance -ClassName CIM_OperatingSystem).OSArchitecture) == "ARM 64-bit Processor") {
         $arch = "arm_64"

@@ -4,7 +4,7 @@ function build_droid() {
     echo "Generating executable..."
 
     user=$(whoami)
-    version="1.4.21"
+    version="1.4.22"
 
     if [[ "$OSTYPE" == "linux-gnu"* ]]
     then

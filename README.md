@@ -1,6 +1,6 @@
 # Droid
 
-<img src="https://raw.githubusercontent.com/azazelm3dj3d/droid/main/.github/assets/droid_logo.png" />
+<img src="https://raw.githubusercontent.com/battleoverflow/droid/main/.github/assets/droid_logo.png" />
 
 Droid is a desktop application created to communicate with Android devices on the local network over the Android debug bridge (adb). You can access the Android device directly over USB or connect to the device through Droid via `adb`. Droid allows you to completely control the Android device using multiple options, including a CLI and a GUI.
 
@@ -14,7 +14,7 @@ Droid can be installed via `pip`
 pip install droid
 ```
 
-You can also download the executable from `itch.io`: https://0xazazelm3dj3d.itch.io/droid
+You can also download the executable from `itch.io`: https://battleoverflow.itch.io/droid
 
 ## GUI
 
@@ -30,7 +30,7 @@ droid -g
 
 Current state of the user interface
 
-<img src="https://raw.githubusercontent.com/azazelm3dj3d/droid/main/.github/assets/gui.png" />
+<img src="https://raw.githubusercontent.com/battleoverflow/droid/main/.github/assets/gui.png" />
 
 ## Simple usage (CLI)
 
@@ -114,4 +114,4 @@ droid -ip 127.0.0.1 -sl -o screenshot
 
 A wiki for common Android snippets is also available. This wiki shows examples of how Droid can used with the Android operating system
 
-Wiki: https://github.com/azazelm3dj3d/droid/wiki/Helpful-Android-Snippets
+Wiki: https://github.com/battleoverflow/droid/wiki/Helpful-Android-Snippets
